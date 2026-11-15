@@ -1,0 +1,37 @@
+[Unit]
+Description=MongoDB for Fluxy
+Requires=fluxy.service
+Before=fluxy.service
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=on-failure
+SystemCallArchitectures=native
+MemoryDenyWriteExecute=false
+
+[Container]
+Image=public.ecr.aws/docker/library/mongo:latest
+ContainerName=fluxy-mongodb
+EnvironmentFile=%h/Environments/Fluxer/Fluxy-Mongo.env
+Entrypoint=mongod
+# Remove --auth for the duration of the setup then add it back
+Exec=--bind_ip_all --auth
+Volume=%h/Databases/Fluxy:/data/db:U,Z
+Tmpfs=/tmp:rw,size=32M,noexec,nosuid,nodev
+ShmSize=32M
+HealthCmd=mongosh --quiet --eval "db.adminCommand('ping').ok" localhost:27017/test
+HealthInterval=10s
+HealthRetries=30
+HealthTimeout=5s
+Notify=healthy
+AutoUpdate=registry
+NoNewPrivileges=true
+DropCapability=all
+Memory=1G
+PodmanArgs=--cpus=1
+PodmanArgs=--memory-swap=0M
+User=999:999
+UserNS=auto:size=1000
+Network=fluxy-mongodb.network
