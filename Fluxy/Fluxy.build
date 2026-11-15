@@ -1,0 +1,6 @@
+[Build]
+ServiceName=Fluxy-Builder
+SetWorkingDirectory=%h/Builder/fluxy
+File=Dockerfile
+ForceRM=true
+ImageTag=localhost/fluxy:latest
