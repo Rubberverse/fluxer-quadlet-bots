@@ -12,7 +12,7 @@ SystemCallArchitectures=native
 MemoryDenyWriteExecute=false
 
 [Container]
-Image=localhost/fluxy:latest
+Image=Fluxy.build
 ContainerName=fluxy
 EnvironmentFile=%h/Environments/Fluxer/Fluxy.env
 Volume=fluxy-gateway-session:/data:U,Z
