@@ -14,7 +14,6 @@ MemoryDenyWriteExecute=false
 [Container]
 Image=public.ecr.aws/docker/library/mongo:latest
 ContainerName=fluxy-mongodb
-EnvironmentFile=%h/Environments/Fluxer/Fluxy-Mongo.env
 Entrypoint=mongod
 # Remove --auth for the duration of the setup then add it back
 Exec=--bind_ip_all --auth
